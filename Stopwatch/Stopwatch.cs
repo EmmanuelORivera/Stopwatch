@@ -3,34 +3,28 @@
 	public static class Stopwatch
 	{
 		static private DateTime _startTime;
-		static private bool _started = false;
+		static private bool _isRunning = false;
 		static public void Start()
 		{
-			if (_started) throw new InvalidOperationException("Stopwatch started twice");
+			if (_isRunning) throw new InvalidOperationException("Stopwatch is already running");
 
-			if (_startTime == DateTime.MinValue)
-			{
-				_startTime = DateTime.Now;
-                Console.WriteLine("Stopwatch Started At: {0}",TimeSpan.Zero);
-            }
-			else
-			{
-                Console.WriteLine("Stopwatch Resumed At: {0}", GetElapsedTime());
-            }
-				
-			_started = true;
-		}
+			_startTime = DateTime.Now;
+			_isRunning = true;
 
-		public static TimeSpan GetElapsedTime()
-		{
-			return DateTime.Now - _startTime;
-		}
+			Console.WriteLine("Stopwatch started at: "+ _startTime);
+        }
 
 		static public TimeSpan Stop()
 		{
-			_started = false;
+			if(!_isRunning) throw new InvalidOperationException("Stopwatch is not running");
 
-			return GetElapsedTime();
+			var endTime = DateTime.Now;
+			_isRunning = false;
+			var duration = endTime - _startTime;
+
+            Console.WriteLine("Stopwatch stopped at: "+ endTime);
+            Console.WriteLine("Duration: " + duration);
+			return duration;
 		}
 	}
 }
