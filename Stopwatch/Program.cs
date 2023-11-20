@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Excercises;
+using System;
 namespace Stopwatch
 {
 	internal class Program
@@ -7,7 +8,8 @@ namespace Stopwatch
 		{
 			try
 			{
-				UseStopwatch();
+			//	UseStopwatch();
+				UseTestPostClass();
 			}
 			catch (Exception ex)
 			{
@@ -28,5 +30,18 @@ namespace Stopwatch
 			Thread.Sleep(2000);
 			Console.WriteLine(Stopwatch.Stop());
 		}
+
+		static void UseTestPostClass()
+		{
+			var post = new Post();
+
+			post.VoteDown();
+			post.VoteDown();
+			post.VoteDown();
+
+			post.VoteUp();
+
+            Console.WriteLine(post.Vote);
+        }
 	}
 }
